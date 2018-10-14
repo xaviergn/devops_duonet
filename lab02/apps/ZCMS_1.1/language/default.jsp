@@ -1,0 +1,69 @@
+<%
+String ADD_NEW ="Add New";
+String ADMINISTRATION_PANEL ="Administration Panel";
+String AUTHOR ="Author";
+String ALLOWED="Allowed";
+String BLOCK ="Block";
+String BLOCKED ="Blocked";
+String COMMENT ="Comment";
+String COMMENTS ="Comments";
+String CONTENT ="Content";
+String CREATE_A_NEW_POST ="Create a New Post";
+String CREATED ="Created";
+String THE_DATE ="Date";
+String DELETE ="Delete";
+String DELETE_LAST ="Delete Last";
+String EDIT ="Edit";
+String EDIT_A_POST ="Edit a Post";
+String EMAIL ="Email";
+String EMAIL_ADDRESS ="Email Address";
+String FIRST_NAME ="Fist name";
+String LAST_NAME ="Last name";
+String LEAVE_A_REPLY ="Leave a Reply";
+String LINK ="Link";
+String LOGOUT ="Logout";
+String LOGIN ="Login";
+String MANAGE_ALLOWED_C ="Manage Allowed Comments";
+String MANAGE_COMMENTS ="Manage Comments";
+String MANAGE_POSTS ="Manage Posts";
+String MENU ="Menu";
+String MENU_MANAGER ="Menu Manager";
+String MODERATION ="Your comment is awaiting moderation.";
+String MODIFIED ="Modified";
+String NOT_ALLOWED="Not Allowed";
+String MSG_LOGOUT ="Your have logged out.";
+String MSG_REGISTERED="You have successfully registered";
+String NAME ="Name";
+String NAME_R ="Name (required)";
+String NEWER_ENTRIES="newer entries";
+String NEW_POST_CREATED ="New Post Created";
+String OLDER_ENTRIES="older entries";
+String PAGE ="Page";
+String PASSWORD ="Password";
+String PLACE ="Place";
+String POST ="Post";
+String POST_COMMENT ="Post a Comment";
+String POST_PUBLIC ="Public";
+String POST_PRIVATE ="Private";
+String POSTED_BY ="Posted by";
+String POSTED_ON ="Posted on";
+String READ_MORE ="Read more";
+String REQUIRED ="required";
+String RESPONSES ="Responses";
+String SAVE_ALL ="Save All";
+String SAYS ="Says";
+String SIGNUP ="Signup";
+String SUBMIT ="Submit";
+String TITLE ="Title";
+String THE_TYPE ="Type";
+String UNBLOCK="Unblock";
+String USERNAME ="Username";
+String VISIBILITY ="Visibility";
+String WEBSITE ="Website";
+String WRONG_EMAIL ="Wrong email";
+String YOUR_MESSAGE ="Your Message";
+
+
+
+
+%>

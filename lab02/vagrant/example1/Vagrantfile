@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  config.aws_credentials.profile = "default"
+  config.vm.box = "dummy"
+
+  config.vm.provider :aws do |aws, override|
+    aws.keypair_name              = "student21"
+
+    aws.ami = "ami-0d77397e"
+    aws.tags = { "test" => "true" }
+
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = ENV["HOME"] + "/.aws/student21.pem"
+  end
+end

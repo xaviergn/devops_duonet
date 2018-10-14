@@ -1,0 +1,21 @@
+﻿AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: 'Performs a periodic check of the given site, erroring out on test failure.'
+Resources:
+  stoptestinstances:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: stop-test-instances.lambda_handler
+      Runtime: python2.7
+      CodeUri: .
+      Description: >-
+        Performs a periodic check of the given site, erroring out on test
+        failure.
+      MemorySize: 128
+      Timeout: 10
+      Role: 'arn:aws:iam::414976691609:role/lambda_start_stop_ec2'
+      Events:
+        Schedule1:
+          Type: Schedule
+          Properties:
+            Schedule: 'cron(0 19,03 ? * * *)'

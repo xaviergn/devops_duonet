@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+puts "This is an example of Vagrant file used as Ruby code"
+
+instances=4
+
+Vagrant.configure("2") do |config|
+  config.ssh.pty = true
+  config.aws_credentials.profile = "default"
+  # This is a loop to reduce the amount of code duplicated
+  (0..instances).each do |instance|
+    instance_name = "example3-#{instance.to_s}"
+    config.vm.define instance_name do |server|
+      server.vm.box = "dummy"
+
+      server.vm.provider :aws do |aws, override|
+        aws.ami = "ami-0d77397e"
+        aws.keypair_name = "devops"
+        aws.tags = { 
+          "test" => "true",
+          "Name" => instance_name
+        }
+        override.ssh.username = "ubuntu"
+        override.ssh.private_key_path = "#{ENV['HOME']}/.aws/devops.pem"
+  
+        server.vm.provision "shell", inline: "echo Installing stuff..."
+        server.vm.provision "shell", inline: "echo Done."
+      end
+    end
+  end
+end

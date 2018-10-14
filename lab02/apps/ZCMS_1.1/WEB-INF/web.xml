@@ -1,0 +1,12 @@
+<web-app>
+<display-name>ZENCHERRY-CMS</display-name>
+<servlet>
+	  <servlet-name>Pager</servlet-name>
+	  <servlet-class>motores.Controlador</servlet-class>
+	</servlet>  
+	
+	<servlet-mapping>
+	  <servlet-name>Pager</servlet-name>
+		<url-pattern>/page.do</url-pattern>
+	</servlet-mapping>
+</web-app>

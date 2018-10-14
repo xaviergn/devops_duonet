@@ -1,0 +1,113 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+puts "This is an example of Vagrant file used as Ruby code"
+puts
+puts "Let's create a set of resources"
+puts "- Web Servers"
+puts "- App Servers"
+puts "- Database Servers"
+puts "- Extra Servers: "
+
+web_instances=4
+app_instances=4
+db_instances=2
+
+PROJECT_NAME = "example4"
+AWS_BOX = "dummy"
+AWS_AMI = "ami-0d77397e"
+AWS_SSH_USERNAME = "ubuntu"
+AWS_PRIVATE_KEY = "devops"
+AWS_PRIVATE_KEY_PATH = "#{ENV['HOME']}/.aws/devops.pem"
+AWS_REGION = "eu-west-1"
+
+Vagrant.configure("2") do |config|
+  config.aws_credentials.profile = "default"
+
+  ### Web Servers ###
+  # This is a loop to reduce the amount of code duplicated
+  (0..web_instances).each do |instance|
+    instance_name = "#{PROJECT_NAME}-web-#{instance.to_s}"
+    create_aws_instance(config,instance_name,instance_type="m3.medium") do |aws,override,server|
+      aws.tags = { 
+        "test" => "true",
+        "Name" => instance_name
+      }
+  
+      server.vm.provision "shell", inline: "echo Installing stuff..."
+      server.vm.provision "shell", inline: "echo Done."
+    end
+  end
+
+  ### End Web Servers ###
+
+  ### App Servers ###
+
+  (0..app_instances).each do |instance|
+    instance_name = "#{PROJECT_NAME}-app-#{instance.to_s}"
+    create_aws_instance(config,instance_name,instance_type="m3.medium") do |aws,override,server|
+      aws.tags = { 
+        "test" => "true",
+        "Name" => instance_name
+      }
+  
+      server.vm.provision "shell", inline: "echo Installing stuff..."
+      server.vm.provision "shell", inline: "echo Done."
+    end
+  end
+
+
+  ### End App Servers ###
+
+  ### Database Servers ###
+
+  (0..db_instances).each do |instance|
+    instance_name = "#{PROJECT_NAME}-db-#{instance.to_s}"
+    create_aws_instance(config,instance_name,instance_type="m3.medium") do |aws,override,server|
+      aws.tags = { 
+        "test" => "true",
+        "Name" => instance_name
+      }
+  
+      server.vm.provision "shell", inline: "echo Installing stuff..."
+      server.vm.provision "shell", inline: "echo Done."
+    end
+  end
+  ### End Database Servers ###
+
+  ### Extra Servers ###
+  ## Jenkins
+  instance_name = "#{PROJECT_NAME}-jenkins"
+  create_aws_instance(config,instance_name,instance_type="m3.medium") do |aws,override,server|
+    aws.tags = {
+      "test" => "true",
+      "Name" => instance_name
+    }
+
+    server.vm.provision "shell", inline: "echo Installing stuff..."
+    server.vm.provision "shell", inline: "echo Done."
+  end
+  ## Jenkins
+
+
+  ### End Extra Servers ###
+
+end
+
+
+### DO NOT EDIT UNDER THIS LINE ###
+
+def create_aws_instance(config, name, instance_type="m3.medium")
+  config.ssh.pty = true
+  config.vm.define name do |server|
+    server.vm.box = AWS_BOX
+    server.vm.provider :aws do |aws, override|
+      aws.instance_type = instance_type
+      aws.region = AWS_REGION
+      aws.ami = AWS_AMI
+      aws.keypair_name = AWS_PRIVATE_KEY
+      override.ssh.username = AWS_SSH_USERNAME
+      override.ssh.private_key_path = AWS_PRIVATE_KEY_PATH
+      yield(aws,override,server)
+    end
+  end
+end

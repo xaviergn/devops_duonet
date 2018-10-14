@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  config.ssh.pty = true
+  config.aws_credentials.profile = "default"
+  config.vm.box = "dummy"
+
+  config.vm.provider :aws do |aws, override|
+    aws.ami = "ami-0d77397e"
+    aws.keypair_name = "devops"
+    aws.tags = { "test" => "true" }
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "#{ENV['HOME']}/.aws/devops.pem"
+    override.route53.hosted_zone_id = 'Z3D6ZFPZSEPRBY'
+    override.route53.record_set     = %w(test.jmlab.es. A)
+
+    config.vm.provision "shell", inline: "echo Installing stuff..."
+    config.vm.provision "shell", path: "install-web-server.sh"
+  end
+end
